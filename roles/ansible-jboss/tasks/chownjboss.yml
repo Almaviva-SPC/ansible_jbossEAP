@@ -1,0 +1,5 @@
+- file:
+    path: /opt/jboss-eap-7.1
+    owner: jboss
+    group: jboss
+    recurse: yes

@@ -1,0 +1,10 @@
+- name: Download pacchetto postgresql 42.2.1
+  get_url:
+    url:  https://jdbc.postgresql.org/download/postgresql-42.2.1.jar
+    dest: /opt
+
+- name: Spostare file postgresql-42.2.1.jar nella cartella di jboss
+  command: mv /opt/postgresql-42.2.1.jar /opt/jboss-eap-7.1/
+
+- name: Avvio di jboss
+  command: systemctl start jboss-as-domain.service

@@ -1,0 +1,28 @@
+- name: Configurazione host-slave.xml
+  template:
+    src: host-slave.file
+    dest: /opt/jboss-eap-7.1/domain/configuration/host-slave.xml
+    owner: jboss
+    group: jboss
+- replace:
+    path: /opt/jboss-eap-7.1/domain/configuration/host-slave.xml
+    regexp: "masterip"
+    replace: "{{hostvars[item]['ansible_default_ipv4']['address']}}"
+  with_items:
+    - "{{ groups['master'] }}"
+#widlfly.conf
+- name: jboss.conf
+  template:
+    src: jboss-slave.conf
+    dest: /etc/default/jboss-eap
+    owner: jboss
+    group: jboss
+#jboss.service
+- name: jboss service
+  template:
+    src: jboss-as-domain.service
+    dest: /etc/systemd/system/jboss.service
+    owner: jboss
+    group: jboss
+- name: reload daemon systemctl
+  systemd: daemon_reload=yes

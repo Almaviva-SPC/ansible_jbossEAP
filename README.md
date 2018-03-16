@@ -1,1 +1,1 @@
-# ansible_jbossEAP
+# jboss
